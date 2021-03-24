@@ -61,6 +61,11 @@
     <Folder Include="Scripts" />
     <Folder Include="Functions" />
     <Folder Include="Views" />
+    <Folder Include="Stored Procedures\Users" />
+    <Folder Include="Stored Procedures\Comments" />
+    <Folder Include="Stored Procedures\Staff" />
+    <Folder Include="Stored Procedures\Movies" />
+    <Folder Include="Stored Procedures\Casting" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Users.sql" />
@@ -71,12 +76,20 @@
     <Build Include="Views\V_Users.sql" />
     <Build Include="Views\V_Comments.sql" />
     <Build Include="Views\V_Comments_Users.sql" />
-    <Build Include="Stored Procedures\SP_User_Login.sql" />
-    <Build Include="Stored Procedures\SP_AddUser.sql" />
-    <Build Include="Stored Procedures\SP_Switch_Role.sql" />
-    <Build Include="Stored Procedures\SP_UpdateUser.sql" />
-    <Build Include="Stored Procedures\SP_DisableUser.sql" />
-    <Build Include="Stored Procedures\SP_DisableComment.sql" />
+    <Build Include="Stored Procedures\Users\SP_User_Login.sql" />
+    <Build Include="Stored Procedures\Users\SP_UpdateUser.sql" />
+    <Build Include="Stored Procedures\Users\SP_DisableUser.sql" />
+    <Build Include="Stored Procedures\Users\SP_AddUser.sql" />
+    <Build Include="Stored Procedures\Comments\SP_AddComment.sql" />
+    <Build Include="Stored Procedures\Comments\SP_DisableComment.sql" />
+    <Build Include="Stored Procedures\Comments\SP_UpdateComment.sql" />
+    <Build Include="Stored Procedures\Users\SP_Switch_Role.sql" />
+    <Build Include="Stored Procedures\Staff\SP_AddStaff.sql" />
+    <Build Include="Stored Procedures\Staff\SP_UpdateStaff.sql" />
+    <Build Include="Stored Procedures\Movies\SP_AddMovie.sql" />
+    <Build Include="Stored Procedures\Movies\SP_UpdateMovie.sql" />
+    <Build Include="Stored Procedures\Casting\SP_AddCasting.sql" />
+    <Build Include="Stored Procedures\Casting\SP_UpdateCasting.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="FilmApp.DataBase.refactorlog" />
