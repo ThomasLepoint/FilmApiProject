@@ -11,7 +11,7 @@
     [Disable_at] DATETIME2 NULL, 
     [Reason] NVARCHAR(255) NULL,
 
-    constraint PK_Comment_Id primary key ([Id]),
-    constraint FK_Comment_Movie foreign key ([MovieId]) references [Movies] ([Id]),
-    constraint FK_Comment_User foreign key ([UserId]) references [Users] ([Id])
+    CONSTRAINT PK_Comment_Id primary key ([Id]),
+    CONSTRAINT FK_Comment_Movie foreign key ([MovieId]) references [Movies]([Id]),
+    CONSTRAINT FK_Comment_User foreign key ([UserId]) references [Users]([Id])
 )
