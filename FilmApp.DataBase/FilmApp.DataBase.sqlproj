@@ -94,4 +94,7 @@
   <ItemGroup>
     <RefactorLog Include="FilmApp.DataBase.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="FilmApp.DataBase.publish.xml" />
+  </ItemGroup>
 </Project>
