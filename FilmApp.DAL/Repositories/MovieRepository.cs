@@ -12,7 +12,6 @@ namespace FilmApp.DAL.Repositories
         {
 
         }
-
         public override bool Delete(Guid id, string Reason)
         {
             throw new NotImplementedException();
