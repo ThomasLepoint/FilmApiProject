@@ -36,7 +36,6 @@ namespace FilmApp.DAL.Repositories
             cmd.AddParameter("@ReleaseDate", data.ReleaseDate);
             return _connection.ExecuteNonQuery(cmd) >= 1;
         }
-
         protected override MovieEntity Convert(IDataRecord reader)
         {
             return new MovieEntity()
