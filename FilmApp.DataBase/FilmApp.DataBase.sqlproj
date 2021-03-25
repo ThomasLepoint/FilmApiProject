@@ -90,6 +90,7 @@
     <Build Include="Stored Procedures\Movies\SP_UpdateMovie.sql" />
     <Build Include="Stored Procedures\Casting\SP_AddCasting.sql" />
     <Build Include="Stored Procedures\Casting\SP_UpdateCasting.sql" />
+    <Build Include="Stored Procedures\Casting\SP_GetCasting.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="FilmApp.DataBase.refactorlog" />

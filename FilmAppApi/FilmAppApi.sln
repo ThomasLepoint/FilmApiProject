@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmAppApi", "FilmAppApi.csproj", "{4F2516BD-D1C5-4251-A38F-D94A51304F00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmAppApi", "FilmAppApi.csproj", "{4F2516BD-D1C5-4251-A38F-D94A51304F00}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FilmApp.DataBase", "..\FilmApp.DataBase\FilmApp.DataBase.sqlproj", "{2B10D914-B030-4C86-A971-82EA880B26E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmApp.DAL", "..\FilmApp.DAL\FilmApp.DAL.csproj", "{C7DE6EB3-1C4E-442C-BF5B-C2AD3CB2A350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{2B10D914-B030-4C86-A971-82EA880B26E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B10D914-B030-4C86-A971-82EA880B26E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B10D914-B030-4C86-A971-82EA880B26E8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C7DE6EB3-1C4E-442C-BF5B-C2AD3CB2A350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7DE6EB3-1C4E-442C-BF5B-C2AD3CB2A350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7DE6EB3-1C4E-442C-BF5B-C2AD3CB2A350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7DE6EB3-1C4E-442C-BF5B-C2AD3CB2A350}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
