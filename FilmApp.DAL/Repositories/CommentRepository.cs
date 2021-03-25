@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using Tools;
 
 namespace FilmApp.DAL.Repositories
 {
@@ -17,17 +18,33 @@ namespace FilmApp.DAL.Repositories
 
         public override Guid Insert(CommentEntity entity)
         {
-            throw new NotImplementedException();
+            Command cmd = new Command("SP_AddStaff", true);
+            cmd.AddParameter("@Title", entity.Title);
+            cmd.AddParameter("@Content", entity.Content);
+            cmd.AddParameter("@Value", entity.Value);
+
+            return (Guid)_connection.ExecuteScalar(cmd);
         }
 
         public override bool Update(CommentEntity data)
         {
-            throw new NotImplementedException();
+            Command cmd = new Command("SP_UpdateStaff", true);
+            cmd.AddParameter("@Id", data.Id);
+            cmd.AddParameter("@Title", data.Title);
+            cmd.AddParameter("@Content", data.Content);
+            cmd.AddParameter("@Value", data.Value);
+            return _connection.ExecuteNonQuery(cmd) >= 1;
         }
 
         protected override CommentEntity Convert(IDataRecord reader)
         {
-            throw new NotImplementedException();
+            return new CommentEntity()
+            {
+                Id = Guid.Parse(reader["Id"].ToString()),
+                Title = reader["Title"].ToString(),
+                Content = reader["Content"].ToString(),
+                Value = int.Parse(reader["Value"].ToString())
+            };
         }
     }
 }
