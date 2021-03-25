@@ -1,33 +1,31 @@
 ﻿using FilmApp.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace FilmApp.DAL.Repositories
 {
-    public class CommentRepository : IBaseRepository<Guid, CommentEntity>
+    public class CommentRepository : BaseRepository<Guid, CommentEntity>
     {
-        public bool Delete(Guid id)
+        public CommentRepository() : base("V_Comments", "Id")
+        { }
+        public override bool Delete(Guid id, string Reason)
         {
             throw new NotImplementedException();
         }
 
-        public CommentEntity Get(Guid id)
+        public override Guid Insert(CommentEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CommentEntity> GetAll()
+        public override bool Update(CommentEntity data)
         {
             throw new NotImplementedException();
         }
 
-        public Guid Insert(CommentEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(CommentEntity data)
+        protected override CommentEntity Convert(IDataRecord reader)
         {
             throw new NotImplementedException();
         }

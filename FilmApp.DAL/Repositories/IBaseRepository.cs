@@ -18,6 +18,6 @@ namespace FilmApp.DAL.Repositories
         bool Update(TEntity data);
 
         // Delete
-        bool Delete(TKey id);
+        bool Delete(TKey id, string Reason);
     }
 }

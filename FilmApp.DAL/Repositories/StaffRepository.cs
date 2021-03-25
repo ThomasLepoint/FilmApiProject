@@ -1,33 +1,33 @@
 ﻿using FilmApp.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace FilmApp.DAL.Repositories
 {
-    public class StaffRepository : IBaseRepository<Guid, StaffEntity>
+    public class StaffRepository : BaseRepository<Guid, StaffEntity>
     {
-        public bool Delete(Guid id)
+        public StaffRepository() : base ("Staff", "Id")
+        {
+
+        }
+        public override bool Delete(Guid id, string Reason)
         {
             throw new NotImplementedException();
         }
 
-        public StaffEntity Get(Guid id)
+        public override Guid Insert(StaffEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<StaffEntity> GetAll()
+        public override bool Update(StaffEntity data)
         {
             throw new NotImplementedException();
         }
 
-        public Guid Insert(StaffEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(StaffEntity data)
+        protected override StaffEntity Convert(IDataRecord reader)
         {
             throw new NotImplementedException();
         }
