@@ -11,11 +11,11 @@ namespace FilmApp.DAL.Repositories
     {
         public CastingRepository():base("Casting", "Id")
         { }
-        public List<CastingEntity> GetCasting(Guid Id)
+        public IEnumerable<CastingEntity> GetCasting(Guid Id)
         {
             Command cmd = new Command("SP_GetCasting", true);
             cmd.AddParameter("@IdMovie", Id);
-            return _connection.ExecuteReader<IEnumerable<CastingEntity>>(cmd, Convert);
+            return _connection.ExecuteReader(cmd, Convert);
         }
         public bool AddCasting(List<CastingEntity> casting)
         {
