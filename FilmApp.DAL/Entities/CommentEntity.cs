@@ -15,7 +15,19 @@ namespace FilmApp.DAL.Entities
         public DateTime Created_at { get; set; }
         public DateTime Updated_at { get; set; }
         public DateTime Disable_at { get; set; }
-        public string Reason { get; set; }
-        
+        public string Reason { get; set; } 
+    }
+    public class MovieCommentEntity : IEntity<Guid>
+    {
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public int Value { get; set; }
+        public string MovieTitle { get; set; }
+        public string Login { get; set; }
+        public Guid MovieId { get; set; }
+        public Guid UserId { get; set; }
+        public DateTime Created_at { get; set; }
+
     }
 }

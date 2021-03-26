@@ -46,5 +46,32 @@ namespace FilmApp.DAL.Repositories
                 Value = int.Parse(reader["Value"].ToString())
             };
         }
+        protected MovieCommentEntity ConvertMovieComment(IDataRecord reader)
+        {
+            return new MovieCommentEntity()
+            {
+                Id = Guid.Parse(reader["Id"].ToString()),
+                Title = reader["Title"].ToString(),
+                Content = reader["Content"].ToString(),
+                Value = int.Parse(reader["Value"].ToString()),
+                MovieTitle = reader["MovieTitle"].ToString(),
+                MovieId = Guid.Parse(reader["MovieId"].ToString()),
+                UserId = Guid.Parse(reader["UserId"].ToString()),
+                Login = reader["Login"].ToString(),
+                Created_at = (DateTime)reader["Created_at"]
+            };
+        }
+        public IEnumerable<MovieCommentEntity> GetFilmComments(Guid IdMovie)
+        {
+            Command cmd = new Command("SP_GetMovieComments", true);
+            cmd.AddParameter("@IdMovie", IdMovie);
+            return _connection.ExecuteReader(cmd, ConvertMovieComment);
+        }
+        public IEnumerable<MovieCommentEntity> GetUserComments(Guid IdUser)
+        {
+            Command cmd = new Command("SP_GetMovieComments", true);
+            cmd.AddParameter("@IdUser", IdUser);
+            return _connection.ExecuteReader(cmd, ConvertMovieComment);
+        }
     }
 }
