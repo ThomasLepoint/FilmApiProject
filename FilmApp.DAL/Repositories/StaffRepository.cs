@@ -27,7 +27,6 @@ namespace FilmApp.DAL.Repositories
 
             return (Guid)_connection.ExecuteScalar(cmd);
         }
-
         public override bool Update(StaffEntity data)
         {
             Command cmd = new Command("SP_UpdateStaff", true);
@@ -37,7 +36,6 @@ namespace FilmApp.DAL.Repositories
             cmd.AddParameter("@BirthDate", data.BirthDate);
             return _connection.ExecuteNonQuery(cmd) >= 1;
         }
-
         protected override StaffEntity Convert(IDataRecord reader)
         {
             return new StaffEntity()

@@ -91,6 +91,7 @@
     <Build Include="Stored Procedures\Casting\SP_GetCasting.sql" />
     <Build Include="Stored Procedures\Comments\SP_GetUserComments.sql" />
     <Build Include="Stored Procedures\Comments\SP_GetMovieComments.sql" />
+    <Build Include="Views\V_MoviesComplete.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="FilmApp.DataBase.refactorlog" />
