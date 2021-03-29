@@ -40,6 +40,7 @@ namespace FilmAppApi.Controllers
             _repoCmt.Delete(comment.ToDal());
             return Ok();
         }
+        [HttpGet("{Id}")]
         public IActionResult Get(Guid Id)
         {
             CompleteComment comment = _repoCmt.GetFullComments().Where(x=>x.Id == Id).Select(c=>c.ToApi()).SingleOrDefault();

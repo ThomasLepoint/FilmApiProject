@@ -17,17 +17,14 @@ namespace FilmApp.DAL.Repositories
             cmd.AddParameter("@IdMovie", Id);
             return _connection.ExecuteReader(cmd, Convert);
         }
-        public bool AddCasting(List<CastingEntity> casting)
+        public bool AddCasting(CastingEntity cast)
         {
             bool succes = true;
-            foreach (CastingEntity cast in casting)
-            {
                 Command cmd = new Command("SP_AddCasting");
                 cmd.AddParameter("@MovieId", cast.MovieId);
                 cmd.AddParameter("@StaffId", cast.StaffId);
                 cmd.AddParameter("@Character", cast.Character);
                 succes = _connection.ExecuteNonQuery(cmd) >= 1;
-            }
             return succes;
         }
         public bool UpdateCasting(List<CastingEntity> casting)

@@ -23,14 +23,20 @@ namespace FilmAppApi.Controllers
             _castRepo = castRepo;
         }
         [HttpPost]
-        public IActionResult Create(Movie movie, [FromBody]InsertCasting cast)
+        public IActionResult Create(InsertCompleteMovie _movie)
         {
-            if (movie is null || !ModelState.IsValid)
+            if (_movie is null || !ModelState.IsValid)
                 return BadRequest();
 
+            Movie movie = _movie.ToMovie();
             Guid id = _repo.Insert(movie.ToDal());
-            if (cast is not null)
-            _castRepo.Insert(cast.ToDal());
+            if (_movie.Casting is not null)
+            {
+                foreach (InsertCasting cast in _movie.Casting)
+                {
+                    _castRepo.Insert(cast.ToDal());
+                }
+            }
             return Ok();
         }
         [HttpPut]
@@ -44,7 +50,7 @@ namespace FilmAppApi.Controllers
             // Generate Token
             return Ok();
         }
-        [HttpGet]
+        [HttpGet("{Id}")]
         public IActionResult Get(Guid Id)
         {
             CompleteMovie movie = _repo.Get(Id).ToAPi();

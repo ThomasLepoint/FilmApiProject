@@ -35,7 +35,6 @@ namespace FilmAppApi.Controllers
                 return BadRequest();
 
             _repo.Update(staff.ToDal());
-            //messageRepository.getAll().where(uint=>uint.userId == id).select(static => static.toApi())
 
             // Generate Token
             return Ok(new
@@ -43,7 +42,7 @@ namespace FilmAppApi.Controllers
                 //token = TokenManager.GenerateJWT(id, userRegister.Email)
             });
         }
-        [HttpGet]
+        [HttpGet("{Id}")]
         public IActionResult Get(Guid Id)
         {
             return Ok(_repo.Get(Id));

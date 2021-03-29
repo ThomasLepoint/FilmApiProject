@@ -99,6 +99,18 @@ namespace FilmAppApi.Tools
                 BirthDate = staff.BirthDate
             };
         }
+        public static Movie ToMovie(this InsertCompleteMovie movie)
+        {
+            return new Movie()
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Synopsis = movie.Synopsis,
+                DirectorId = movie.DirectorId,
+                ScriptWriterId = movie.ScriptWriterId,
+                ReleaseDate = movie.ReleaseDate
+            };
+        }
         public static d.MovieEntity ToDal(this Movie movie)
         {
             return new d.MovieEntity()
