@@ -44,6 +44,7 @@ namespace FilmApp.DAL.Repositories
             cmd.AddParameter("@Password", entity.Password);
             cmd.AddParameter("@FirstName", entity.FirstName);
             cmd.AddParameter("@LastName", entity.LastName);
+            if (entity.BirthDate != null)
             cmd.AddParameter("@BirthDate", entity.BirthDate);
             cmd.AddParameter("@IsAdmin", entity.IsAdmin);
             return (Guid)_connection.ExecuteScalar(cmd);

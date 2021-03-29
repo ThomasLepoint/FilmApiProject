@@ -1,3 +1,4 @@
+using FilmApp.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,11 @@ namespace FilmAppApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient(typeof(CommentRepository));
+            services.AddTransient(typeof(UserRepository));
+            services.AddTransient(typeof(StaffRepository));
+            services.AddTransient(typeof(MovieRepository));
+            services.AddTransient(typeof(CastingRepository));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -39,8 +45,6 @@ namespace FilmAppApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FilmAppApi v1"));
             }
 
             app.UseRouting();
@@ -50,6 +54,13 @@ namespace FilmAppApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.DisplayOperationId();
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FilmAppApi v1");
             });
         }
     }
