@@ -37,6 +37,21 @@ namespace FilmAppApi.Tools
                 ScriptWriterId = movie.DirectorId
             };
         }
+        public static CompleteComment ToApi(this d.MovieCommentEntity comment)
+        {
+            return new CompleteComment()
+            {
+                Id = comment.Id,
+                Title = comment.Title,
+                Content = comment.Content,
+                Value = comment.Value,
+                MovieTitle = comment.MovieTitle,
+                Login = comment.Login,
+                MovieId = comment.MovieId,
+                UserId = comment.UserId,
+                Created_at = comment.Created_at
+            };
+        }
         public static Casting ToApi(this d.CastingEntity casting)
         {
             return new Casting()
@@ -96,6 +111,50 @@ namespace FilmAppApi.Tools
             ReleaseDate = movie.ReleaseDate
             };
         }
-
+        public static d.CastingEntity ToDal(this InsertCasting casting)
+        {
+            return new d.CastingEntity()
+            {
+                MovieId = casting.MovieId,
+                StaffId = casting.StaffId,
+                Character = casting.Character
+            };
+        }
+        public static d.CommentEntity ToDal(this InsertComment comment)
+        {
+            return new d.CommentEntity()
+            {
+                Title = comment.Title,
+                Content = comment.Content,
+                Value = comment.Value,
+                MovieId = comment.MovieId,
+                UserId = comment.UserId
+            };
+        }
+        public static d.UserEntity ToDal(this DeleteUser user)
+        {
+            return new d.UserEntity() {
+            Id = user.Id,
+            Reason = user.Reason
+            };
+        }
+        public static d.CommentEntity ToDal(this DeleteComment comment)
+        {
+            return new d.CommentEntity()
+            {
+                Id = comment.Id,
+                Reason = comment.Reason
+            };
+        }
+        public static d.CommentEntity ToDal(this UpdateComment comment)
+        {
+            return new d.CommentEntity()
+            {
+                Id = comment.Id,
+                Title = comment.Title,
+                Content = comment.Content,
+                Value = comment.Value
+            };
+        }
     }
 }

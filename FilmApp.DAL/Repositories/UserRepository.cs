@@ -27,11 +27,11 @@ namespace FilmApp.DAL.Repositories
                 IsAdmin = (bool)reader["IsAdmin"]
             };
         }
-        public override bool Delete(Guid id, string Reason)
+        public override bool Delete(UserEntity user)
         {
             Command cmd = new Command("SP_DisableUser", true);
-            cmd.AddParameter("@Id", id);
-            cmd.AddParameter("@Reason", Reason);
+            cmd.AddParameter("@Id", user.Id);
+            cmd.AddParameter("@Reason", user.Reason);
 
             return _connection.ExecuteNonQuery(cmd) >= 1;
         }

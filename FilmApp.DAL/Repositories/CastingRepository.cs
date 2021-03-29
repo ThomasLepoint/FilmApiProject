@@ -74,8 +74,7 @@ namespace FilmApp.DAL.Repositories
             cmd.AddParameter("@Character", data.Character);
             return _connection.ExecuteNonQuery(cmd) >= 1;
         }
-
-        public override bool Delete(Guid id, string Reason)
+        public override bool Delete(CastingEntity entity)
         {
             throw new NotImplementedException();
         }

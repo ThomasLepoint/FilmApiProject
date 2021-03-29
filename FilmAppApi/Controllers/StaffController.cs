@@ -43,13 +43,6 @@ namespace FilmAppApi.Controllers
                 //token = TokenManager.GenerateJWT(id, userRegister.Email)
             });
         }
-        [HttpDelete]
-        public IActionResult Delete(Guid Id, string Reason)
-        {
-            if (_repo.Get(Id) == null) return BadRequest();
-
-            return Ok(_repo.Delete(Id, Reason));
-        }
         [HttpGet]
         public IActionResult Get(Guid Id)
         {

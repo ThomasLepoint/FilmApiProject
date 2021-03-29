@@ -44,4 +44,9 @@ namespace FilmAppApi.Models
         public string Password { get; set; }
 
     }
+    public class DeleteUser
+    {
+        public Guid Id { get; set; }
+        public string Reason { get; set; }
+    }
 }

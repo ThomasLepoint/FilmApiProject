@@ -78,11 +78,11 @@ namespace FilmAppApi.Controllers
             });
         }
         [HttpDelete("{Id}")]
-        public IActionResult Delete(Guid Id, string Reason)
+        public IActionResult Delete(DeleteUser user)
         {
-            if (_repo.Get(Id) == null) return BadRequest();
+            if (_repo.Get(user.Id) == null) return BadRequest();
 
-            return Ok(_repo.Delete(Id, Reason));
+            return Ok(_repo.Delete(user.ToDal()));
         }
 
         [HttpPut]

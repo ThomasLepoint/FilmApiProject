@@ -23,12 +23,14 @@ namespace FilmAppApi.Controllers
             _castRepo = castRepo;
         }
         [HttpPost]
-        public IActionResult Create(Movie movie)
+        public IActionResult Create(Movie movie, [FromBody]InsertCasting cast)
         {
             if (movie is null || !ModelState.IsValid)
                 return BadRequest();
 
             Guid id = _repo.Insert(movie.ToDal());
+            if (cast is not null)
+            _castRepo.Insert(cast.ToDal());
             return Ok();
         }
         [HttpPut]
@@ -38,20 +40,9 @@ namespace FilmAppApi.Controllers
                 return BadRequest();
 
             _repo.Update(movie.ToDal());
-            //messageRepository.getAll().where(uint=>uint.userId == id).select(static => static.toApi())
 
             // Generate Token
-            return Ok(new
-            {
-                //token = TokenManager.GenerateJWT(id, userRegister.Email)
-            });
-        }
-        [HttpDelete]
-        public IActionResult Delete(Guid Id, string Reason)
-        {
-            if (_repo.Get(Id) == null) return BadRequest();
-
-            return Ok(_repo.Delete(Id, Reason));
+            return Ok();
         }
         [HttpGet]
         public IActionResult Get(Guid Id)

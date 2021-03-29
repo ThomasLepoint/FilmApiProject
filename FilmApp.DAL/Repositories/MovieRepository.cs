@@ -13,7 +13,7 @@ namespace FilmApp.DAL.Repositories
         {
 
         }
-        public override bool Delete(Guid id, string Reason)
+        public override bool Delete(MovieEntity movie)
         {
             throw new NotImplementedException();
         }

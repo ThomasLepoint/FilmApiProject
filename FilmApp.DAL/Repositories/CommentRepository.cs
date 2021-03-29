@@ -9,11 +9,14 @@ namespace FilmApp.DAL.Repositories
 {
     public class CommentRepository : BaseRepository<Guid, CommentEntity>
     {
-        public CommentRepository() : base("V_Comments", "Id")
+        public CommentRepository() : base("Comments", "Id")
         { }
-        public override bool Delete(Guid id, string Reason)
+        public override bool Delete(CommentEntity entity)
         {
-            throw new NotImplementedException();
+            Command cmd = new Command("SP_DisableComment", true);
+            cmd.AddParameter("@Id", entity.Id);
+            cmd.AddParameter("@Reason", entity.Reason);
+            return _connection.ExecuteNonQuery(cmd) >= 1;
         }
 
         public override Guid Insert(CommentEntity entity)
@@ -22,6 +25,8 @@ namespace FilmApp.DAL.Repositories
             cmd.AddParameter("@Title", entity.Title);
             cmd.AddParameter("@Content", entity.Content);
             cmd.AddParameter("@Value", entity.Value);
+            cmd.AddParameter("@MovieId", entity.MovieId);
+            cmd.AddParameter("@UserId", entity.UserId);
 
             return (Guid)_connection.ExecuteScalar(cmd);
         }
@@ -43,7 +48,12 @@ namespace FilmApp.DAL.Repositories
                 Id = Guid.Parse(reader["Id"].ToString()),
                 Title = reader["Title"].ToString(),
                 Content = reader["Content"].ToString(),
-                Value = int.Parse(reader["Value"].ToString())
+                Value = int.Parse(reader["Value"].ToString()),
+                UserId = Guid.Parse(reader["UserId"].ToString()),
+                MovieId = Guid.Parse(reader["Movie"].ToString()),
+                Created_at = (DateTime)reader["Created_at"],
+                Disable_at = (DateTime)reader["Disabled_at"],
+                Reason = reader["Reason"].ToString()
             };
         }
         protected MovieCommentEntity ConvertMovieComment(IDataRecord reader)
@@ -60,6 +70,11 @@ namespace FilmApp.DAL.Repositories
                 Login = reader["Login"].ToString(),
                 Created_at = (DateTime)reader["Created_at"]
             };
+        }
+        public IEnumerable<MovieCommentEntity> GetFullComments()
+        {
+            Command cmd = new Command("SP_GetFullComments", true);
+            return _connection.ExecuteReader(cmd, ConvertMovieComment);
         }
         public IEnumerable<MovieCommentEntity> GetFilmComments(Guid IdMovie)
         {

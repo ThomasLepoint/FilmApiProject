@@ -38,6 +38,6 @@ namespace FilmApp.DAL.Repositories
             return _connection.ExecuteReader(cmd, Convert);
         }
         public abstract bool Update(TEntity data);
-        public abstract bool Delete(TKey id, string Reason);
+        public abstract bool Delete(TEntity entity);
     }
 }

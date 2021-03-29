@@ -13,4 +13,5 @@ namespace FilmApp.DAL.Entities
         public Guid ScriptWriterId { get; set; }
         public Guid DirectorId { get; set; }
     }
+
 }
