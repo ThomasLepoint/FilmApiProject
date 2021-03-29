@@ -25,6 +25,37 @@ namespace FilmAppApi.Tools
 
             };
         }
+        public static CompleteMovie ToAPi(this d.MovieEntity movie)
+        {
+            return new CompleteMovie()
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Synopsis = movie.Synopsis,
+                ReleaseDate = movie.ReleaseDate,
+                DirectorId = movie.DirectorId,
+                ScriptWriterId = movie.DirectorId
+            };
+        }
+        public static Casting ToApi(this d.CastingEntity casting)
+        {
+            return new Casting()
+            {
+                LastName = casting.LastName,
+                FirstName = casting.FirstName,
+                BirthDate = casting.BirthDate,
+                Character = casting.Character
+            };
+        }
+        public static Staff ToApi(this d.StaffEntity staff)
+        {
+            return new Staff()
+            {
+                FirstName = staff.FirstName,
+                LastName = staff.LastName,
+                BirthDate = staff.BirthDate
+            };
+        }
         public static d.UserEntity ToDal(this UserRegister userRegister)
         {
             return new d.UserEntity() {
@@ -51,6 +82,18 @@ namespace FilmAppApi.Tools
                 FirstName = staff.FirstName,
                 LastName = staff.LastName,
                 BirthDate = staff.BirthDate
+            };
+        }
+        public static d.MovieEntity ToDal(this Movie movie)
+        {
+            return new d.MovieEntity()
+            { 
+            Id = movie.Id,
+            Title = movie.Title,
+            Synopsis = movie.Synopsis,
+            DirectorId = movie.DirectorId,
+            ScriptWriterId = movie.ScriptWriterId,
+            ReleaseDate = movie.ReleaseDate
             };
         }
 

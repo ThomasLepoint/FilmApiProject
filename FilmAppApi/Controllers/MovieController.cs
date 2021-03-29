@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FilmApp.DAL.Repositories;
+using FilmAppApi.Models;
+using FilmAppApi.Tools;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,59 @@ namespace FilmAppApi.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
+        private MovieRepository _repo { get; }
+        private StaffRepository _staffRepo { get; }
+        private CastingRepository _castRepo { get; }
+        public MovieController(MovieRepository repo, StaffRepository staffRepo, CastingRepository castRepo)
+        {
+            _repo = repo;
+            _staffRepo = staffRepo;
+            _castRepo = castRepo;
+        }
+        [HttpPost]
+        public IActionResult Create(Movie movie)
+        {
+            if (movie is null || !ModelState.IsValid)
+                return BadRequest();
 
+            Guid id = _repo.Insert(movie.ToDal());
+            return Ok();
+        }
+        [HttpPut]
+        public IActionResult Update(Movie movie)
+        {
+            if (movie is null || !ModelState.IsValid)
+                return BadRequest();
+
+            _repo.Update(movie.ToDal());
+            //messageRepository.getAll().where(uint=>uint.userId == id).select(static => static.toApi())
+
+            // Generate Token
+            return Ok(new
+            {
+                //token = TokenManager.GenerateJWT(id, userRegister.Email)
+            });
+        }
+        [HttpDelete]
+        public IActionResult Delete(Guid Id, string Reason)
+        {
+            if (_repo.Get(Id) == null) return BadRequest();
+
+            return Ok(_repo.Delete(Id, Reason));
+        }
+        [HttpGet]
+        public IActionResult Get(Guid Id)
+        {
+            CompleteMovie movie = _repo.Get(Id).ToAPi();
+            movie.ScriptWriter = _staffRepo.GetAll().Where(sId => sId.Id == movie.ScriptWriterId).Select(x=>x.ToApi()).SingleOrDefault();
+            movie.Director = _staffRepo.GetAll().Where(sId => sId.Id == movie.DirectorId).Select(x=>x.ToApi()).SingleOrDefault();
+            movie.Casting = _castRepo.GetAll().Where(cId => cId.MovieId == movie.Id).Select(x => x.ToApi());
+            return Ok(movie);
+        }
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_repo.GetAll());
+        }
     }
 }
