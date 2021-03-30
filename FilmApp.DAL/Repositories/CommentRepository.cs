@@ -9,7 +9,7 @@ namespace FilmApp.DAL.Repositories
 {
     public class CommentRepository : BaseRepository<Guid, CommentEntity>
     {
-        public CommentRepository() : base("Comments", "Id")
+        public CommentRepository() : base("V_Comments", "Id")
         { }
         public override bool Delete(CommentEntity entity)
         {
@@ -70,6 +70,11 @@ namespace FilmApp.DAL.Repositories
                 Login = reader["Login"].ToString(),
                 Created_at = (DateTime)reader["Created_at"]
             };
+        }
+        public IEnumerable<CommentEntity> GetEveryComments()
+        {
+            Command cmd = new Command("SP_GetEveryComments", true);
+            return _connection.ExecuteReader(cmd, Convert);
         }
         public IEnumerable<MovieCommentEntity> GetFullComments()
         {

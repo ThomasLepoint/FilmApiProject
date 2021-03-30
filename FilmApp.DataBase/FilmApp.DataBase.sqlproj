@@ -93,6 +93,9 @@
     <Build Include="Stored Procedures\Comments\SP_GetMovieComments.sql" />
     <Build Include="Views\V_MoviesComplete.sql" />
     <Build Include="Stored Procedures\Comments\SP_GetFullComments.sql" />
+    <Build Include="Stored Procedures\Users\GetEveryUser.sql" />
+    <Build Include="Views\V_FullComments.sql" />
+    <Build Include="Stored Procedures\Comments\SP_GetEveryComments.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="FilmApp.DataBase.refactorlog" />

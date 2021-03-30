@@ -64,6 +64,12 @@ namespace FilmAppApi.Controllers
         {
             return Ok(_repoCmt.GetAll());
         }
+        [HttpGet]
+        [Authorize("admin")]
+        public IActionResult GetEveryComments()
+        {
+            return Ok(_repoCmt.GetEveryComments());
+        }
 
 
     }

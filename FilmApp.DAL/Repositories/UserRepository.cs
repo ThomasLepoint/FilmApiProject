@@ -23,22 +23,8 @@ namespace FilmApp.DAL.Repositories
                 LastName = reader["LastName"].ToString(),
                 BirthDate = (DateTime)reader["BirthDate"],
                 Password = null,
-                Disable_at = (DateTime)reader["Disable_at"],
+                Disable_Until = (DateTime)reader["Disable_Until"],
                 Reason = reader["Reason"].ToString(),
-                IsAdmin = (bool)reader["IsAdmin"]
-            };
-        }
-        protected UserEntity ConvertLogin(IDataRecord reader)
-        {
-            return new UserEntity()
-            {
-                Id = Guid.Parse(reader["Id"].ToString()),
-                Login = reader["Login"].ToString(),
-                Email = reader["Email"].ToString(),
-                FirstName = reader["FirstName"].ToString(),
-                LastName = reader["LastName"].ToString(),
-                BirthDate = (DateTime)reader["BirthDate"],
-                Password = null,
                 IsAdmin = (bool)reader["IsAdmin"]
             };
         }
@@ -46,11 +32,11 @@ namespace FilmApp.DAL.Repositories
         {
             Command cmd = new Command("SP_DisableUser", true);
             cmd.AddParameter("@Id", user.Id);
+            cmd.AddParameter("@Disable_Until", user.Disable_Until);
             cmd.AddParameter("@Reason", user.Reason);
 
             return _connection.ExecuteNonQuery(cmd) >= 1;
         }
-
         public override Guid Insert(UserEntity entity)
         {
             Command cmd = new Command("SP_Add_User", true);
@@ -82,6 +68,11 @@ namespace FilmApp.DAL.Repositories
             cmd.AddParameter("@Password", password);
 
             return _connection.ExecuteReader(cmd, Convert).SingleOrDefault();
+        }
+        public IEnumerable<UserEntity> GetEveryUser()
+        {
+            Command cmd = new Command("SP_GetEveryUser", true);
+            return _connection.ExecuteReader(cmd, Convert);
         }
         public bool SwitchRole(Guid guid)
         {

@@ -51,9 +51,10 @@ namespace FilmAppApi.Controllers
 
             d.UserEntity userApp = _repo.Login(userLogin.Login, userLogin.Password);
 
-            if (userApp is null || userApp.Disable_at > DateTime.Now)
+            if (userApp is null)
                 return new ForbidResult();
-
+            if (userApp.Disable_Until > DateTime.Now)
+                return new ForbidResult($"Utilisateur bani jusqu'au {userApp.Disable_Until} : {userApp.Reason}");
             // Generate Token
             return Ok(_tokenManager.GenerateJWT(userApp));
         }
@@ -69,6 +70,12 @@ namespace FilmAppApi.Controllers
         {
             return Ok(_repo.GetAll());
         }
+        [HttpGet]
+        [Authorize("admin")]
+        public IActionResult GetEveryUser()
+        {
+            return Ok(_repo.GetEveryUser());
+        }
         [HttpPut]
         [Authorize("user")]
         public IActionResult Update(UserEntity user)
@@ -77,13 +84,8 @@ namespace FilmAppApi.Controllers
                 return BadRequest();
 
             _repo.Update(user.ToDal());
-            //messageRepository.getAll().where(uint=>uint.userId == id).select(static => static.toApi())
-
-            // Generate Token
             return Ok(new
-            {
-                //token = TokenManager.GenerateJWT(id, userRegister.Email)
-            });
+            {});
         }
         [HttpDelete("{Id}")]
         [Authorize("admin")]
