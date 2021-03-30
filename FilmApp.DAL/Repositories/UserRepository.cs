@@ -81,7 +81,7 @@ namespace FilmApp.DAL.Repositories
             cmd.AddParameter("@Login", login );
             cmd.AddParameter("@Password", password);
 
-            return _connection.ExecuteReader(cmd, ConvertLogin).SingleOrDefault();
+            return _connection.ExecuteReader(cmd, Convert).SingleOrDefault();
         }
         public bool SwitchRole(Guid guid)
         {

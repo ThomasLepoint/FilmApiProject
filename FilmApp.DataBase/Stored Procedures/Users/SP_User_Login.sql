@@ -21,8 +21,6 @@ BEGIN
 		-- On souhaite obtenir l'id de l'utilisateur sur base de l'email et du password hashé
 		DECLARE @UserId UNIQUEIDENTIFIER;
 		SELECT @UserId = [Id] FROM [Users] WHERE [Login] LIKE @Login AND [Password] = @Password_Hash;
-
-		-- Renvoie de l'utilisateur trouvé via la vue "V_UserApp"
-		SELECT * FROM [V_Users] WHERE [Id] = @UserId;
+		SELECT * FROM [Users] WHERE [Id] = @UserId;
 	END
 END

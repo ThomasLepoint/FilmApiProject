@@ -51,7 +51,7 @@ namespace FilmAppApi.Controllers
 
             d.UserEntity userApp = _repo.Login(userLogin.Login, userLogin.Password);
 
-            if (userApp is null)
+            if (userApp is null || userApp.Disable_at > DateTime.Now)
                 return new ForbidResult();
 
             // Generate Token
