@@ -1,4 +1,5 @@
-﻿using FilmAppApi.Models;
+﻿
+using FilmApp.DAL.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace FilmAppApi.TokenJWT
 
         public string GenerateJWT(UserEntity user)
         {
-            if (user.Email is null)
+            if (user.Login is null)
                 throw new ArgumentNullException();
 
             // Création des crédentials 

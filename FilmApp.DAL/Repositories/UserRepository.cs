@@ -17,13 +17,28 @@ namespace FilmApp.DAL.Repositories
             return new UserEntity()
             {
                 Id = Guid.Parse(reader["Id"].ToString()),
+                Login = reader["Login"].ToString(),
                 Email = reader["Email"].ToString(),
                 FirstName = reader["FirstName"].ToString(),
                 LastName = reader["LastName"].ToString(),
                 BirthDate = (DateTime)reader["BirthDate"],
                 Password = null,
-                Disable_at = (DateTime)reader["Deleted_at"],
+                Disable_at = (DateTime)reader["Disable_at"],
                 Reason = reader["Reason"].ToString(),
+                IsAdmin = (bool)reader["IsAdmin"]
+            };
+        }
+        protected UserEntity ConvertLogin(IDataRecord reader)
+        {
+            return new UserEntity()
+            {
+                Id = Guid.Parse(reader["Id"].ToString()),
+                Login = reader["Login"].ToString(),
+                Email = reader["Email"].ToString(),
+                FirstName = reader["FirstName"].ToString(),
+                LastName = reader["LastName"].ToString(),
+                BirthDate = (DateTime)reader["BirthDate"],
+                Password = null,
                 IsAdmin = (bool)reader["IsAdmin"]
             };
         }
@@ -60,13 +75,13 @@ namespace FilmApp.DAL.Repositories
 
             return _connection.ExecuteNonQuery(cmd) >= 1;
         }
-        public UserEntity Login(string email, string password)
+        public UserEntity Login(string login, string password)
         {
-            Command cmd = new Command("LoginUser", true);
-            cmd.AddParameter("@Email", email);
+            Command cmd = new Command("SP_LoginUser", true);
+            cmd.AddParameter("@Login", login );
             cmd.AddParameter("@Password", password);
 
-            return _connection.ExecuteReader(cmd, Convert).SingleOrDefault();
+            return _connection.ExecuteReader(cmd, ConvertLogin).SingleOrDefault();
         }
         public bool SwitchRole(Guid guid)
         {

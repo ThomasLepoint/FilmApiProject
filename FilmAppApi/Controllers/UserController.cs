@@ -49,7 +49,7 @@ namespace FilmAppApi.Controllers
             if (userLogin is null || !ModelState.IsValid)
                 return BadRequest();
 
-            UserEntity userApp = _repo.Login(userLogin.Login, userLogin.Password).ToApi();
+            d.UserEntity userApp = _repo.Login(userLogin.Login, userLogin.Password);
 
             if (userApp is null)
                 return new ForbidResult();
