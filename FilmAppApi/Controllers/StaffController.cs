@@ -1,6 +1,7 @@
 ﻿using FilmApp.DAL.Repositories;
 using FilmAppApi.Models;
 using FilmAppApi.Tools;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,10 @@ namespace FilmAppApi.Controllers
         private StaffRepository _repo { get; set; }
         public StaffController(StaffRepository repo)
         {
-            _repo = repo;
+            this._repo = repo;
         }
         [HttpPost]
+        [Authorize("admin")]
         public IActionResult Create(Staff staff)
         {
             if (staff is null || !ModelState.IsValid)
@@ -29,6 +31,7 @@ namespace FilmAppApi.Controllers
             return Ok();
         }
         [HttpPut]
+        [Authorize("admin")]
         public IActionResult Update(Staff staff)
         {
             if (staff is null || !ModelState.IsValid)
@@ -43,11 +46,13 @@ namespace FilmAppApi.Controllers
             });
         }
         [HttpGet("{Id}")]
+        [Authorize("user")]
         public IActionResult Get(Guid Id)
         {
             return Ok(_repo.Get(Id));
         }
         [HttpGet]
+        [Authorize("user")]
         public IActionResult GetAll()
         {
             return Ok(_repo.GetAll());

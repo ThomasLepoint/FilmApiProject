@@ -38,15 +38,14 @@ namespace FilmApp.DAL.Repositories
 
         public override Guid Insert(UserEntity entity)
         {
-            Command cmd = new Command("SP_AddUser", true);
+            Command cmd = new Command("SP_Add_User", true);
             cmd.AddParameter("@Login", entity.Login);
             cmd.AddParameter("@Email", entity.Email);
             cmd.AddParameter("@Password", entity.Password);
             cmd.AddParameter("@FirstName", entity.FirstName);
             cmd.AddParameter("@LastName", entity.LastName);
-            if (entity.BirthDate != null)
             cmd.AddParameter("@BirthDate", entity.BirthDate);
-            cmd.AddParameter("@IsAdmin", entity.IsAdmin);
+            cmd.AddParameter("@IsAdmin", 0);
             return (Guid)_connection.ExecuteScalar(cmd);
         }
 

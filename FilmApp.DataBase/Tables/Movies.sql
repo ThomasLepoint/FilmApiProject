@@ -3,7 +3,7 @@
 	[Id] UNIQUEIDENTIFIER NOT NULL default NEWSEQUENTIALID(), 
     [Title] NVARCHAR(50) NOT NULL, 
     [Synopsis] NVARCHAR(255) NULL, 
-    [ReleaseDate] DATETIME2 NULL, 
+    [ReleaseDate] DATE NULL, 
     [ScriptWriterId] UNIQUEIDENTIFIER NOT NULL, 
     [DirectorId] UNIQUEIDENTIFIER NOT NULL,
 

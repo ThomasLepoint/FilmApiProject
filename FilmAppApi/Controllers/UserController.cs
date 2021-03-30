@@ -8,30 +8,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using d = FilmApp.DAL.Entities;
 using FilmAppApi.Tools;
+using FilmAppApi.TokenJWT;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmAppApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class UserController : ControllerBase
     {
         private UserRepository _repo { get; }
         private CommentRepository _repoCmt { get; }
+        private TokenManager _tokenManager { get; }
         // GET: UserController
-        public UserController(UserRepository repo, CommentRepository repocmt)
+        public UserController(UserRepository repo, CommentRepository repocmt, TokenManager tokenManager)
         {
             _repo = repo;
             _repoCmt = repocmt;
+            _tokenManager = tokenManager;
         }
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(UserRegister userRegister)
         {
             if (userRegister is null || !ModelState.IsValid)
                 return BadRequest();
 
             Guid id = _repo.Insert(userRegister.ToDal());
-            //messageRepository.getAll().where(uint=>uint.userId == id).select(static => static.toApi())
-
             // Generate Token
             return Ok(new
             {
@@ -51,18 +55,22 @@ namespace FilmAppApi.Controllers
                 return new ForbidResult();
 
             // Generate Token
-            return Ok();
+            return Ok(_tokenManager.GenerateJWT(userApp));
         }
         [HttpGet("{Id}")]
+        [Authorize("user")]
         public IActionResult Get(Guid Id)
         {
             return Ok(_repo.Get(Id));
         }
         [HttpGet]
+        [Authorize("user")]
         public IActionResult GetAll()
         {
             return Ok(_repo.GetAll());
         }
+        [HttpPut]
+        [Authorize("user")]
         public IActionResult Update(UserEntity user)
         {
             if (user is null || !ModelState.IsValid)
@@ -78,6 +86,7 @@ namespace FilmAppApi.Controllers
             });
         }
         [HttpDelete("{Id}")]
+        [Authorize("admin")]
         public IActionResult Delete(DeleteUser user)
         {
             if (_repo.Get(user.Id) == null) return BadRequest();
@@ -86,9 +95,10 @@ namespace FilmAppApi.Controllers
         }
 
         [HttpPut]
-        public IActionResult SwitchRole(d.UserEntity user)
+        [Authorize("admin")]
+        public IActionResult SwitchRole(UserEntity user)
         {
-            return Ok(_repo.Update(user));
+            return Ok(_repo.Update(user.ToDal()));
         }
     }
 }

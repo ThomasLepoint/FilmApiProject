@@ -76,7 +76,12 @@ namespace FilmAppApi.Tools
             return new d.UserEntity() {
                 Email = userRegister.Email,
                 Login = userRegister.Login,
-                Password = userRegister.Password
+                Password = userRegister.Password,
+                FirstName = userRegister.FirstName,
+                LastName = userRegister.LastName,
+                BirthDate = userRegister.BirthDate,
+
+
             };
         }
         public static d.UserEntity ToDal(this UserEntity user)

@@ -6,7 +6,7 @@
     [Password] NVARCHAR(50) NOT NULL, 
     [FirstName] NVARCHAR(50) NULL, 
     [LastName] NVARCHAR(50) NULL, 
-    [BirthDate] DATETIME2 NULL, 
+    [BirthDate] DATE NULL, 
     [IsAdmin] BIT NOT NULL DEFAULT 0, 
     [Disable_at] DATETIME2 NULL, 
     [Reason] NVARCHAR(255) NULL,

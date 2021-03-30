@@ -1,6 +1,7 @@
 ﻿using FilmApp.DAL.Repositories;
 using FilmAppApi.Models;
 using FilmAppApi.Tools;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,12 @@ namespace FilmAppApi.Controllers
         private CastingRepository _castRepo { get; }
         public MovieController(MovieRepository repo, StaffRepository staffRepo, CastingRepository castRepo)
         {
-            _repo = repo;
-            _staffRepo = staffRepo;
-            _castRepo = castRepo;
+            this._repo = repo;
+            this._staffRepo = staffRepo;
+            this._castRepo = castRepo;
         }
         [HttpPost]
+        [Authorize("admin")]
         public IActionResult Create(InsertCompleteMovie _movie)
         {
             if (_movie is null || !ModelState.IsValid)
@@ -40,6 +42,7 @@ namespace FilmAppApi.Controllers
             return Ok();
         }
         [HttpPut]
+        [Authorize("admin")]
         public IActionResult Update(Movie movie)
         {
             if (movie is null || !ModelState.IsValid)
@@ -51,6 +54,7 @@ namespace FilmAppApi.Controllers
             return Ok();
         }
         [HttpGet("{Id}")]
+        [Authorize("user")]
         public IActionResult Get(Guid Id)
         {
             CompleteMovie movie = _repo.Get(Id).ToAPi();
@@ -60,6 +64,7 @@ namespace FilmAppApi.Controllers
             return Ok(movie);
         }
         [HttpGet]
+        [Authorize("user")]
         public IActionResult GetAll()
         {
             return Ok(_repo.GetAll());

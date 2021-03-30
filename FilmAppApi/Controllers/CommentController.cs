@@ -1,6 +1,7 @@
 ﻿using FilmApp.DAL.Repositories;
 using FilmAppApi.Models;
 using FilmAppApi.Tools;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,29 +19,33 @@ namespace FilmAppApi.Controllers
         private MovieRepository _repoMovie { get; }
         public CommentController(UserRepository user, CommentRepository comment, MovieRepository movie)
         {
-            _repoCmt = comment;
-            _repoMovie = movie;
-            _repoUser = user;
+            this._repoCmt = comment;
+            this._repoMovie = movie;
+            this._repoUser = user;
         }
         [HttpPost]
+        [Authorize("user")]
         public IActionResult Create(InsertComment comment)
         {
             _repoCmt.Insert(comment.ToDal());
             return Ok();
         }
         [HttpPut]
+        [Authorize("user")]
         public IActionResult Update(UpdateComment comment)
         {
             _repoCmt.Update(comment.ToDal());
             return Ok();
         }
         [HttpDelete]
+        [Authorize("admin")]
         public IActionResult Delete(DeleteComment comment)
         {
             _repoCmt.Delete(comment.ToDal());
             return Ok();
         }
         [HttpGet("{Id}")]
+        [Authorize("user")]
         public IActionResult Get(Guid Id)
         {
             CompleteComment comment = _repoCmt.GetFullComments().Where(x=>x.Id == Id).Select(c=>c.ToApi()).SingleOrDefault();
@@ -48,11 +53,13 @@ namespace FilmAppApi.Controllers
             return Ok(comment);
         }
         [HttpGet]
+        [Authorize("user")]
         public IActionResult GetFullComments()
         {
             return Ok(_repoCmt.GetFullComments());
         }
         [HttpGet]
+        [Authorize("user")]
         public IActionResult GetAll()
         {
             return Ok(_repoCmt.GetAll());
