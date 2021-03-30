@@ -62,7 +62,9 @@ namespace FilmAppApi.Controllers
         [Authorize("user")]
         public IActionResult Get(Guid Id)
         {
-            return Ok(_repo.Get(Id));
+            UserWithComment user = _repo.Get(Id).ToApiUserComment();
+            user.Comments = _repoCmt.GetUserComments(Id).Select(x=>x.ToUserComment());
+            return Ok(user);
         }
         [HttpGet]
         [Authorize("user")]

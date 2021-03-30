@@ -17,6 +17,6 @@ namespace FilmAppApi.Models
         public DateTime BirthDate { get; set; }
         public bool IsAdmin { get; set; }
 
-
+        public IEnumerable<UserComment> Comments { get; set; }
     }
 }

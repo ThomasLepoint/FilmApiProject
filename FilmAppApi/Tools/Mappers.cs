@@ -13,7 +13,14 @@ namespace FilmAppApi.Tools
         {
             return new UserWithComment()
             {
-                Id = user.Id
+                Id = user.Id,
+                Login = user.Login,
+                Email = user.Email,
+                Password = null,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                BirthDate = user.BirthDate,
+                IsAdmin = user.IsAdmin
 
             };
         }
@@ -35,6 +42,19 @@ namespace FilmAppApi.Tools
                 ReleaseDate = movie.ReleaseDate,
                 DirectorId = movie.DirectorId,
                 ScriptWriterId = movie.DirectorId
+            };
+        }
+        public static UserComment ToUserComment(this d.MovieCommentEntity comment)
+        {
+            return new UserComment()
+            {
+                Id = comment.Id,
+                Title = comment.Title,
+                Content = comment.Content,
+                Value = comment.Value,
+                MovieTitle = comment.MovieTitle,
+                MovieId = comment.MovieId,
+                Created_at = comment.Created_at
             };
         }
         public static CompleteComment ToApi(this d.MovieCommentEntity comment)
