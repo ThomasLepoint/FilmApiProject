@@ -49,7 +49,7 @@ namespace FilmApp.DAL.Repositories
             StaffId = Guid.Parse(reader["StaffId"].ToString()),
             FirstName = reader["FirstName"].ToString(),
             LastName = reader["LastName"].ToString(),
-            BirthDate = (DateTime)reader["BirthDate"],
+            BirthDate = (reader["BirthDate"] is DBNull) ? null : (DateTime?)reader["BirthDate"],
             Character = reader["Character"].ToString()
             };
         }

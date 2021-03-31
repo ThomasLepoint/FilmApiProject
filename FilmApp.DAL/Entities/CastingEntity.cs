@@ -11,7 +11,7 @@ namespace FilmApp.DAL.Entities
         public Guid StaffId { get; set; }
         public string  LastName { get; set; }
         public string  FirstName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public string  Character { get; set; }
     }
 }

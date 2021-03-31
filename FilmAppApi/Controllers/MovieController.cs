@@ -34,7 +34,7 @@ namespace FilmAppApi.Controllers
 
             Movie movie = _movie.ToMovie();
             Guid id = _repo.Insert(movie.ToDal());
-            if (_movie.Casting is not null)
+            if (!(_movie.Casting is null))
             {
                 foreach (InsertCasting cast in _movie.Casting)
                 {

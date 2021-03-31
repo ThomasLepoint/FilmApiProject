@@ -21,9 +21,9 @@ namespace FilmApp.DAL.Repositories
                 Email = reader["Email"].ToString(),
                 FirstName = reader["FirstName"].ToString(),
                 LastName = reader["LastName"].ToString(),
-                BirthDate = (DateTime)reader["BirthDate"],
+                BirthDate = (reader["BirthDate"] is DBNull) ? null : (DateTime?)reader["BirthDate"],
                 Password = null,
-                Disable_Until = (DateTime)reader["Disable_Until"],
+                Disable_Until = (reader["Disable_Until"] is DBNull) ? null : (DateTime?)reader["Disable_Until"],
                 Reason = reader["Reason"].ToString(),
                 IsAdmin = (bool)reader["IsAdmin"]
             };

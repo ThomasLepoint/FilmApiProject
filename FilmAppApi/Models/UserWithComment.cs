@@ -14,7 +14,7 @@ namespace FilmAppApi.Models
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public bool IsAdmin { get; set; }
 
         public IEnumerable<UserComment> Comments { get; set; }

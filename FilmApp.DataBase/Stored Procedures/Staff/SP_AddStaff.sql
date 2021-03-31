@@ -5,7 +5,7 @@
 AS
 BEGIN
 	-- Ajout de l'utilisateur dans la DB avec le mot de passe hashé
-	INSERT INTO [dbo].[Users] ([FirstName], [LastName],[BirthDate])
+	INSERT INTO [dbo].[Staff] ([FirstName], [LastName],[BirthDate])
 	 OUTPUT [inserted].[Id]
 	 VALUES (@FirstName, @LastName, @BirthDate);
 END

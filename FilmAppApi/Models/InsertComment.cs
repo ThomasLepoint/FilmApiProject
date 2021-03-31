@@ -15,7 +15,7 @@ namespace FilmAppApi.Models
         public Guid UserId { get; set; }
         public DateTime Created_at { get; set; }
         public DateTime Updated_at { get; set; }
-        public DateTime Disable_at { get; set; }
+        public DateTime? Disable_at { get; set; }
         public string Reason { get; set; }
     }
     public class DeleteComment

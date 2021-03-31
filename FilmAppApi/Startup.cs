@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,29 @@ namespace FilmAppApi
             services.AddTransient(typeof(MovieRepository));
             services.AddTransient(typeof(CastingRepository));
 
+            #region ConfigSwagger
+            services.AddSwaggerGen(c =>
+            {
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "swagger.xml");
+                c.IncludeXmlComments(filePath);
+                c.DescribeAllParametersInCamelCase();
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "FilmAppApi",
+                    Description = "Api pour la gestion de films",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    {
+                        Email = "thomaslepoint@gmail.com",
+                        Name = "Thomas"
+                    }
+                });
+            });
+            #endregion
+
+
+
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("admin", policy => policy.RequireRole("admin"));
@@ -58,11 +82,6 @@ namespace FilmAppApi
                 };
             });
             services.AddControllers();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FilmAppApi", Version = "v1" });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,9 +13,9 @@ namespace FilmApp.DAL.Entities
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public bool IsAdmin { get; set; }
-        public DateTime Disable_Until { get; set; }
+        public DateTime? Disable_Until { get; set; }
         public string Reason { get; set; }
     }
 }

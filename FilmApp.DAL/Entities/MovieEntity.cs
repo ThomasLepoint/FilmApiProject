@@ -9,7 +9,7 @@ namespace FilmApp.DAL.Entities
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Synopsis { get; set; }
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
         public Guid ScriptWriterId { get; set; }
         public Guid DirectorId { get; set; }
     }

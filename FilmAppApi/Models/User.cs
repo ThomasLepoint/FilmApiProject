@@ -15,9 +15,9 @@ namespace FilmAppApi.Models
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public bool IsAdmin { get; set; }
-        public DateTime Disable_at { get; set; }
+        public DateTime? Disable_Until { get; set; }
         public string Reason { get; set; }
     }
     public class UserRegister
@@ -33,7 +33,7 @@ namespace FilmAppApi.Models
         public string ConfirmPassword { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
     }
     public class UserLogin

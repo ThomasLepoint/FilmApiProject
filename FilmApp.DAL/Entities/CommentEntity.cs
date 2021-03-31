@@ -13,8 +13,8 @@ namespace FilmApp.DAL.Entities
         public Guid MovieId { get; set; }
         public Guid UserId { get; set; }
         public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public DateTime Disable_at { get; set; }
+        public DateTime? Updated_at { get; set; }
+        public DateTime? Disable_at { get; set; }
         public string Reason { get; set; } 
     }
     public class MovieCommentEntity : IEntity<Guid>
@@ -28,8 +28,8 @@ namespace FilmApp.DAL.Entities
         public Guid UserId { get; set; }
         public string Login { get; set; }
         public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public DateTime Disable_at { get; set; }
+        public DateTime? Updated_at { get; set; }
+        public DateTime? Disable_at { get; set; }
         public string Reason { get; set; }
     }
 

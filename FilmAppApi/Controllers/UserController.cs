@@ -21,7 +21,6 @@ namespace FilmAppApi.Controllers
         private UserRepository _repo { get; }
         private CommentRepository _repoCmt { get; }
         private TokenManager _tokenManager { get; }
-        // GET: UserController
         public UserController(UserRepository repo, CommentRepository repocmt, TokenManager tokenManager)
         {
             _repo = repo;
@@ -29,18 +28,13 @@ namespace FilmAppApi.Controllers
             _tokenManager = tokenManager;
         }
         [HttpPost]
-        [Route("Create")]
         public IActionResult Create(UserRegister userRegister)
         {
             if (userRegister is null || !ModelState.IsValid)
                 return BadRequest();
 
             Guid id = _repo.Insert(userRegister.ToDal());
-            // Generate Token
-            return Ok(new
-            {
-                //token = TokenManager.GenerateJWT(id, userRegister.Email)
-            });
+            return Ok();
         }
         [HttpPost]
         [Route("login")]
@@ -68,12 +62,14 @@ namespace FilmAppApi.Controllers
         }
         [HttpGet]
         [Authorize("user")]
+        [Route("GetAll")]
         public IActionResult GetAll()
         {
             return Ok(_repo.GetAll());
         }
         [HttpGet]
         [Authorize("admin")]
+        [Route("GetAllUsers")]
         public IActionResult GetEveryUser()
         {
             return Ok(_repo.GetEveryUser());
@@ -84,10 +80,8 @@ namespace FilmAppApi.Controllers
         {
             if (user is null || !ModelState.IsValid)
                 return BadRequest();
-
             _repo.Update(user.ToDal());
-            return Ok(new
-            {});
+            return Ok();
         }
         [HttpDelete("{Id}")]
         [Authorize("admin")]
@@ -97,9 +91,9 @@ namespace FilmAppApi.Controllers
 
             return Ok(_repo.Delete(user.ToDal()));
         }
-
         [HttpPut]
         [Authorize("admin")]
+        [Route("SwitchRole")]
         public IActionResult SwitchRole(UserEntity user)
         {
             return Ok(_repo.Update(user.ToDal()));

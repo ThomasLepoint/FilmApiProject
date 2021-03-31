@@ -52,7 +52,7 @@ namespace FilmApp.DAL.Repositories
                 UserId = Guid.Parse(reader["UserId"].ToString()),
                 MovieId = Guid.Parse(reader["Movie"].ToString()),
                 Created_at = (DateTime)reader["Created_at"],
-                Disable_at = (DateTime)reader["Disabled_at"],
+                Disable_at = (reader["Disabled_at"] is DBNull) ? null : (DateTime?)reader["Disabled_at"],
                 Reason = reader["Reason"].ToString()
             };
         }
