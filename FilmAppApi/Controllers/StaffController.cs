@@ -40,12 +40,7 @@ namespace FilmAppApi.Controllers
                 return BadRequest();
 
             _repo.Update(staff.ToDal());
-
-            // Generate Token
-            return Ok(new
-            {
-                //token = TokenManager.GenerateJWT(id, userRegister.Email)
-            });
+            return Ok();
         }
         ///<summary>Get Staff member informations</summary>
         [HttpGet("{Id}")]
