@@ -25,6 +25,7 @@ namespace FilmAppApi.Controllers
             this._castRepo = castRepo;
             this._cmtRepo = _cmtRepo;
         }
+        ///<summary>Create a new movie only for Admin user</summary>
         [HttpPost]
         [Authorize("admin")]
         public IActionResult Create(InsertCompleteMovie _movie)
@@ -43,6 +44,7 @@ namespace FilmAppApi.Controllers
             }
             return Ok();
         }
+        ///<summary>Update a movie only for Admin user</summary>
         [HttpPut]
         [Authorize("admin")]
         public IActionResult Update(Movie movie)
@@ -55,6 +57,7 @@ namespace FilmAppApi.Controllers
             // Generate Token
             return Ok();
         }
+        ///<summary>Get a movie by Id with complete Casting, Director, Scriptwriter and every comment link with the movie</summary>
         [HttpGet("{Id}")]
         [Authorize("user")]
         public IActionResult Get(Guid Id)
@@ -63,9 +66,10 @@ namespace FilmAppApi.Controllers
             movie.ScriptWriter = _staffRepo.GetAll().Where(sId => sId.Id == movie.ScriptWriterId).Select(x=>x.ToApi()).SingleOrDefault();
             movie.Director = _staffRepo.GetAll().Where(sId => sId.Id == movie.DirectorId).Select(x=>x.ToApi()).SingleOrDefault();
             movie.Casting = _castRepo.GetAll().Where(cId => cId.MovieId == movie.Id).Select(x => x.ToApi());
-            movie.Comments = _cmtRepo.GetFilmComments(Id).Select(x=>x.ToMovieComment());
+            movie.Comments = _cmtRepo.GetMovieComments(Id).Select(x=>x.ToMovieComment());
             return Ok(movie);
         }
+        ///<summary>Get every Movies</summary>
         [HttpGet]
         [Authorize("user")]
         public IActionResult GetAll()

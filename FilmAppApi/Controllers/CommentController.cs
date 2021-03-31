@@ -23,6 +23,7 @@ namespace FilmAppApi.Controllers
             this._repoMovie = movie;
             this._repoUser = user;
         }
+        ///<summary>Create a new Comment</summary>
         [HttpPost]
         [Authorize("user")]
         public IActionResult Create(InsertComment comment)
@@ -30,6 +31,7 @@ namespace FilmAppApi.Controllers
             _repoCmt.Insert(comment.ToDal());
             return Ok();
         }
+        ///<summary>Update Comment</summary>
         [HttpPut]
         [Authorize("user")]
         public IActionResult Update(UpdateComment comment)
@@ -37,6 +39,7 @@ namespace FilmAppApi.Controllers
             _repoCmt.Update(comment.ToDal());
             return Ok();
         }
+        ///<summary>Diasble comment with date and reason only for Admin user</summary>
         [HttpDelete]
         [Authorize("admin")]
         public IActionResult Delete(DeleteComment comment)
@@ -44,6 +47,7 @@ namespace FilmAppApi.Controllers
             _repoCmt.Delete(comment.ToDal());
             return Ok();
         }
+        ///<summary>Get comment by Id with complete information (movie title, user login, ...)</summary>
         [HttpGet("{Id}")]
         [Authorize("user")]
         public IActionResult Get(Guid Id)
@@ -52,6 +56,23 @@ namespace FilmAppApi.Controllers
 
             return Ok(comment);
         }
+        ///<summary>Get comment by Id from Movie(movie title, user login, ...)</summary>
+        [HttpGet]
+        [Authorize("user")]
+        [Route("GetMovieComments/{Id}")]
+        public IActionResult GetMovieComments(Guid Id)
+        {
+            return Ok(_repoCmt.GetMovieComments(Id));
+        }
+        ///<summary>Get comment by Id from User(movie title, user login, ...)</summary>
+        [HttpGet]
+        [Authorize("user")]
+        [Route("GetUserComments/{Id}")]
+        public IActionResult GetUserComments(Guid Id)
+        {
+            return Ok(_repoCmt.GetUserComments(Id));
+        }
+        ///<summary>Get comments with complete information (movie title, user login, ...)</summary>
         [HttpGet]
         [Authorize("user")]
         [Route("GetComments")]
@@ -59,6 +80,7 @@ namespace FilmAppApi.Controllers
         {
             return Ok(_repoCmt.GetFullComments());
         }
+        ///<summary>Get every non disabled comments with complete information (movie title, user login, ...)</summary>
         [HttpGet]
         [Authorize("user")]
         [Route("GetAll")]
@@ -66,6 +88,7 @@ namespace FilmAppApi.Controllers
         {
             return Ok(_repoCmt.GetAll());
         }
+        ///<summary>Get every comments with complete information (movie title, user login, ...) only for Admin user</summary>
         [HttpGet]
         [Authorize("admin")]
         [Route("GetAllComments")]

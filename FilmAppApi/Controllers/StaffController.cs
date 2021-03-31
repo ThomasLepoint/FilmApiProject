@@ -20,6 +20,7 @@ namespace FilmAppApi.Controllers
         {
             this._repo = repo;
         }
+        ///<summary>Create a new Staff member only for Admin user</summary>
         [HttpPost]
         [Authorize("admin")]
         public IActionResult Create(Staff staff)
@@ -30,6 +31,7 @@ namespace FilmAppApi.Controllers
             Guid id = _repo.Insert(staff.ToDal());
             return Ok();
         }
+        ///<summary>Update Staff member only for Admin user</summary>
         [HttpPut]
         [Authorize("admin")]
         public IActionResult Update(Staff staff)
@@ -45,12 +47,14 @@ namespace FilmAppApi.Controllers
                 //token = TokenManager.GenerateJWT(id, userRegister.Email)
             });
         }
+        ///<summary>Get Staff member informations</summary>
         [HttpGet("{Id}")]
         [Authorize("user")]
         public IActionResult Get(Guid Id)
         {
             return Ok(_repo.Get(Id));
         }
+        ///<summary>Get every Staff member informations</summary>
         [HttpGet]
         [Authorize("user")]
         public IActionResult GetAll()

@@ -41,6 +41,29 @@ namespace FilmApp.DAL.Repositories
             return _connection.ExecuteNonQuery(cmd) >= 1;
         }
 
+
+        public IEnumerable<CommentEntity> GetEveryComments()
+        {
+            Command cmd = new Command("SP_GetEveryComments", true);
+            return _connection.ExecuteReader(cmd, Convert);
+        }
+        public IEnumerable<MovieCommentEntity> GetFullComments()
+        {
+            Command cmd = new Command("SP_GetFullComments", true);
+            return _connection.ExecuteReader(cmd, ConvertMovieComment);
+        }
+        public IEnumerable<MovieCommentEntity> GetMovieComments(Guid IdMovie)
+        {
+            Command cmd = new Command("SP_GetMovieComments", true);
+            cmd.AddParameter("@IdMovie", IdMovie);
+            return _connection.ExecuteReader(cmd, ConvertMovieComment);
+        }
+        public IEnumerable<MovieCommentEntity> GetUserComments(Guid IdUser)
+        {
+            Command cmd = new Command("SP_GetMovieComments", true);
+            cmd.AddParameter("@IdUser", IdUser);
+            return _connection.ExecuteReader(cmd, ConvertMovieComment);
+        }
         protected override CommentEntity Convert(IDataRecord reader)
         {
             return new CommentEntity()
@@ -70,28 +93,6 @@ namespace FilmApp.DAL.Repositories
                 Login = reader["Login"].ToString(),
                 Created_at = (DateTime)reader["Created_at"]
             };
-        }
-        public IEnumerable<CommentEntity> GetEveryComments()
-        {
-            Command cmd = new Command("SP_GetEveryComments", true);
-            return _connection.ExecuteReader(cmd, Convert);
-        }
-        public IEnumerable<MovieCommentEntity> GetFullComments()
-        {
-            Command cmd = new Command("SP_GetFullComments", true);
-            return _connection.ExecuteReader(cmd, ConvertMovieComment);
-        }
-        public IEnumerable<MovieCommentEntity> GetFilmComments(Guid IdMovie)
-        {
-            Command cmd = new Command("SP_GetMovieComments", true);
-            cmd.AddParameter("@IdMovie", IdMovie);
-            return _connection.ExecuteReader(cmd, ConvertMovieComment);
-        }
-        public IEnumerable<MovieCommentEntity> GetUserComments(Guid IdUser)
-        {
-            Command cmd = new Command("SP_GetMovieComments", true);
-            cmd.AddParameter("@IdUser", IdUser);
-            return _connection.ExecuteReader(cmd, ConvertMovieComment);
         }
     }
 }

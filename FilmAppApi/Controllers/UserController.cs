@@ -27,6 +27,8 @@ namespace FilmAppApi.Controllers
             _repoCmt = repocmt;
             _tokenManager = tokenManager;
         }
+        ///<summary>Register or Create a new user</summary>
+        ///<param name="userRegister">Required : Login, Email, Password, ConfirmPassword</param>
         [HttpPost]
         public IActionResult Create(UserRegister userRegister)
         {
@@ -36,6 +38,7 @@ namespace FilmAppApi.Controllers
             Guid id = _repo.Insert(userRegister.ToDal());
             return Ok();
         }
+        ///<summary>Login method</summary>
         [HttpPost]
         [Route("login")]
         public IActionResult Login(UserLogin userLogin)
@@ -52,6 +55,7 @@ namespace FilmAppApi.Controllers
             // Generate Token
             return Ok(_tokenManager.GenerateJWT(userApp));
         }
+        ///<summary>Get user by Id with all of his comments</summary>
         [HttpGet("{Id}")]
         [Authorize("user")]
         public IActionResult Get(Guid Id)
@@ -60,6 +64,7 @@ namespace FilmAppApi.Controllers
             user.Comments = _repoCmt.GetUserComments(Id).Select(x=>x.ToUserComment());
             return Ok(user);
         }
+        ///<summary>Get all non banned users</summary>
         [HttpGet]
         [Authorize("user")]
         [Route("GetAll")]
@@ -67,6 +72,7 @@ namespace FilmAppApi.Controllers
         {
             return Ok(_repo.GetAll());
         }
+        ///<summary>Get all users only for Admin user</summary>
         [HttpGet]
         [Authorize("admin")]
         [Route("GetAllUsers")]
@@ -74,6 +80,7 @@ namespace FilmAppApi.Controllers
         {
             return Ok(_repo.GetEveryUser());
         }
+        ///<summary>Update User</summary>
         [HttpPut]
         [Authorize("user")]
         public IActionResult Update(UserEntity user)
@@ -83,6 +90,7 @@ namespace FilmAppApi.Controllers
             _repo.Update(user.ToDal());
             return Ok();
         }
+        ///<summary>Ban User only for Admin user</summary>
         [HttpDelete("{Id}")]
         [Authorize("admin")]
         public IActionResult Delete(DeleteUser user)
@@ -91,6 +99,7 @@ namespace FilmAppApi.Controllers
 
             return Ok(_repo.Delete(user.ToDal()));
         }
+        ///<summary>SWitch role of User only for Admin user</summary>
         [HttpPut]
         [Authorize("admin")]
         [Route("SwitchRole")]
