@@ -189,6 +189,7 @@ namespace FilmAppApi.Tools
         {
             return new Casting()
             {
+                Id = casting.Id,
                 LastName = casting.LastName,
                 FirstName = casting.FirstName,
                 BirthDate = casting.BirthDate,
@@ -199,6 +200,7 @@ namespace FilmAppApi.Tools
         {
             return new Staff()
             {
+                Id = staff.Id,
                 FirstName = staff.FirstName,
                 LastName = staff.LastName,
                 BirthDate = staff.BirthDate

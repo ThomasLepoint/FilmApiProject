@@ -6,5 +6,5 @@
 	@DirectorId uniqueidentifier
 AS
 begin
-	insert into [Movies] ([Title], [Synopsis], [ReleaseDate], [ScriptWriterId], [DirectorId]) values (@Title, @Synopsis, @ReleaseDate, @ScriptWriterId, @DirectorId);
+	insert into [Movies] ([Title], [Synopsis], [ReleaseDate], [ScriptWriterId], [DirectorId])  OUTPUT [inserted].[Id] values (@Title, @Synopsis, @ReleaseDate, @ScriptWriterId, @DirectorId);
 end

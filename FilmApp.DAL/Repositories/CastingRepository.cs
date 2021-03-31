@@ -15,7 +15,7 @@ namespace FilmApp.DAL.Repositories
         {
             Command cmd = new Command("SP_GetCasting", true);
             cmd.AddParameter("@IdMovie", Id);
-            return _connection.ExecuteReader(cmd, Convert);
+            return _connection.ExecuteReader(cmd, ToMovieCasting);
         }
         public bool AddCasting(CastingEntity cast)
         {
@@ -53,10 +53,21 @@ namespace FilmApp.DAL.Repositories
             Character = reader["Character"].ToString()
             };
         }
+        protected CastingEntity ToMovieCasting(IDataRecord reader)
+        {
+            return new CastingEntity()
+            {
+                Id = Guid.Parse(reader["Id"].ToString()),
+                FirstName = reader["FirstName"].ToString(),
+                LastName = reader["LastName"].ToString(),
+                BirthDate = (reader["BirthDate"] is DBNull) ? null : (DateTime?)reader["BirthDate"],
+                Character = reader["Character"].ToString()
+            };
+        }
 
         public override Guid Insert(CastingEntity entity)
         {
-            Command cmd = new Command("SP_AddCasting");
+            Command cmd = new Command("SP_AddCasting", true);
             cmd.AddParameter("@MovieId", entity.MovieId);
             cmd.AddParameter("@StaffId", entity.StaffId);
             cmd.AddParameter("@Character", entity.Character);
@@ -65,7 +76,7 @@ namespace FilmApp.DAL.Repositories
 
         public override bool Update(CastingEntity data)
         {
-            Command cmd = new Command("SP_UpdateCasting");
+            Command cmd = new Command("SP_UpdateCasting", true);
             cmd.AddParameter("@MovieId", data.MovieId);
             cmd.AddParameter("@StaffId", data.StaffId);
             cmd.AddParameter("@Character", data.Character);

@@ -39,6 +39,7 @@ namespace FilmAppApi.Controllers
             {
                 foreach (InsertCasting cast in _movie.Casting)
                 {
+                    cast.MovieId = id;
                     _castRepo.Insert(cast.ToDal());
                 }
             }
@@ -65,7 +66,7 @@ namespace FilmAppApi.Controllers
             CompleteMovie movie = _repo.Get(Id).ToAPi();
             movie.ScriptWriter = _staffRepo.GetAll().Where(sId => sId.Id == movie.ScriptWriterId).Select(x=>x.ToApi()).SingleOrDefault();
             movie.Director = _staffRepo.GetAll().Where(sId => sId.Id == movie.DirectorId).Select(x=>x.ToApi()).SingleOrDefault();
-            movie.Casting = _castRepo.GetAll().Where(cId => cId.MovieId == movie.Id).Select(x => x.ToApi());
+            movie.Casting = _castRepo.GetCasting(Id).Select(x => x.ToApi());
             movie.Comments = _cmtRepo.GetMovieComments(Id).Select(x=>x.ToMovieComment());
             return Ok(movie);
         }

@@ -6,5 +6,5 @@
 	@UserId uniqueidentifier
 AS
 begin
-	insert into [Comments] ( [Title], [Content], [Value], [UserId], [MovieId], [Created_at]) values (@Title, @Content,@Value, @MovieId,@UserId, GETDATE() )
+	insert into [Comments] ( [Title], [Content], [Value], [UserId], [MovieId], [Created_at]) output inserted.Id values (@Title, @Content,@Value, @UserId,@MovieId, GETDATE() )
 end

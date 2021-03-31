@@ -23,6 +23,8 @@ namespace FilmApp.DAL.Repositories
             cmd.AddParameter("@Title", entity.Title);
             cmd.AddParameter("@Synopsis", entity.Synopsis);
             cmd.AddParameter("@ReleaseDate", entity.ReleaseDate);
+            cmd.AddParameter("@ScriptWriterId", entity.ScriptWriterId);
+            cmd.AddParameter("@DirectorId", entity.DirectorId);
 
             return (Guid)_connection.ExecuteScalar(cmd);
         }
@@ -43,7 +45,9 @@ namespace FilmApp.DAL.Repositories
                 Id = Guid.Parse(reader["Id"].ToString()),
                 Title = reader["Title"].ToString(),
                 Synopsis = reader["Synopsis"].ToString(),
-                ReleaseDate = (DateTime)reader["ReleaseDate"]
+                ReleaseDate = (DateTime)reader["ReleaseDate"],
+                ScriptWriterId = Guid.Parse(reader["ScriptWriterId"].ToString()),
+                DirectorId = Guid.Parse(reader["DirectorId"].ToString())
             };
         }
     }

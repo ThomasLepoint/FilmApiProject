@@ -38,7 +38,6 @@ namespace FilmAppApi
             services.AddTransient(typeof(MovieRepository));
             services.AddTransient(typeof(CastingRepository));
 
-            #region ConfigSwagger
             services.AddSwaggerGen(c =>
             {
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, "swagger.xml");
@@ -56,11 +55,6 @@ namespace FilmAppApi
                     }
                 });
             });
-            #endregion
-
-
-
-
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("admin", policy => policy.RequireRole("admin"));
@@ -94,14 +88,16 @@ namespace FilmAppApi
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+
+
+
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

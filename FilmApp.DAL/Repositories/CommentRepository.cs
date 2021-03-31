@@ -21,7 +21,7 @@ namespace FilmApp.DAL.Repositories
 
         public override Guid Insert(CommentEntity entity)
         {
-            Command cmd = new Command("SP_AddStaff", true);
+            Command cmd = new Command("SP_AddComment", true);
             cmd.AddParameter("@Title", entity.Title);
             cmd.AddParameter("@Content", entity.Content);
             cmd.AddParameter("@Value", entity.Value);
@@ -45,7 +45,7 @@ namespace FilmApp.DAL.Repositories
         public IEnumerable<CommentEntity> GetEveryComments()
         {
             Command cmd = new Command("SP_GetEveryComments", true);
-            return _connection.ExecuteReader(cmd, Convert);
+            return _connection.ExecuteReader(cmd, CompleteComment);
         }
         public IEnumerable<MovieCommentEntity> GetFullComments()
         {
@@ -73,7 +73,20 @@ namespace FilmApp.DAL.Repositories
                 Content = reader["Content"].ToString(),
                 Value = int.Parse(reader["Value"].ToString()),
                 UserId = Guid.Parse(reader["UserId"].ToString()),
-                MovieId = Guid.Parse(reader["Movie"].ToString()),
+                MovieId = Guid.Parse(reader["MovieId"].ToString()),
+                Created_at = (DateTime)reader["Created_at"],
+            };
+        }
+        protected CommentEntity CompleteComment(IDataRecord reader)
+        {
+            return new CommentEntity()
+            {
+                Id = Guid.Parse(reader["Id"].ToString()),
+                Title = reader["Title"].ToString(),
+                Content = reader["Content"].ToString(),
+                Value = int.Parse(reader["Value"].ToString()),
+                UserId = Guid.Parse(reader["UserId"].ToString()),
+                MovieId = Guid.Parse(reader["MovieId"].ToString()),
                 Created_at = (DateTime)reader["Created_at"],
                 Disable_at = (reader["Disabled_at"] is DBNull) ? null : (DateTime?)reader["Disabled_at"],
                 Reason = reader["Reason"].ToString()
@@ -87,7 +100,7 @@ namespace FilmApp.DAL.Repositories
                 Title = reader["Title"].ToString(),
                 Content = reader["Content"].ToString(),
                 Value = int.Parse(reader["Value"].ToString()),
-                MovieTitle = reader["MovieTitle"].ToString(),
+                //MovieTitle = reader["MovieTitle"].ToString(),
                 MovieId = Guid.Parse(reader["MovieId"].ToString()),
                 UserId = Guid.Parse(reader["UserId"].ToString()),
                 Login = reader["Login"].ToString(),
