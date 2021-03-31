@@ -10,6 +10,8 @@ using d = FilmApp.DAL.Entities;
 using FilmAppApi.Tools;
 using FilmAppApi.TokenJWT;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Mail;
+using System.Net;
 
 namespace FilmAppApi.Controllers
 {
@@ -90,16 +92,46 @@ namespace FilmAppApi.Controllers
             _repo.Update(user.ToDal());
             return Ok();
         }
+        ///<summary>Sending mail test but not functional</summary>
+        [HttpGet]
+        [Route("SendMail")]
+        public IActionResult sendMail()
+        {
+            //need to replace somme data on the fields
+            var fromAddress = new MailAddress("insertmailhere", "name");
+            var toAddress = new MailAddress("insertmailhere", "name");
+            const string fromPassword = "********";
+            const string subject = "test";
+            const string body = "Hey now!!";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                Timeout = 20000
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
+            }
+            return Ok();
+        }
         ///<summary>Ban User only for Admin user</summary>
         [HttpDelete("{Id}")]
         [Authorize("admin")]
         public IActionResult Delete(DeleteUser user)
         {
             if (_repo.Get(user.Id) == null) return BadRequest();
-
             return Ok(_repo.Delete(user.ToDal()));
         }
-        ///<summary>SWitch role of User only for Admin user</summary>
+        ///<summary>Switch role of User only for Admin user</summary>
         [HttpPut]
         [Authorize("admin")]
         [Route("SwitchRole")]
