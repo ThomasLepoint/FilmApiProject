@@ -52,4 +52,14 @@ namespace FilmAppApi.Models
         public string MovieTitle { get; set; }
         public DateTime Created_at { get; set; }
     }
+    public class MovieComment
+    {
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public int Value { get; set; }
+        public string Login { get; set; }
+        public Guid UserId { get; set; }
+        public DateTime Created_at { get; set; }
+    }
 }

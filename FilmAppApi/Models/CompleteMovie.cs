@@ -16,6 +16,7 @@ namespace FilmAppApi.Models
         public Staff Director { get; set; }
         public Staff ScriptWriter { get; set; }
         public IEnumerable<Casting> Casting { get; set; }
+        public IEnumerable<MovieComment> Comments { get; set; }
     }
     public class InsertCompleteMovie
     {

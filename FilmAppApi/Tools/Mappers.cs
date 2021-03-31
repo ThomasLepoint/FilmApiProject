@@ -28,8 +28,14 @@ namespace FilmAppApi.Tools
         {
             return new UserEntity()
             {
-                Id = user.Id
-
+                Id = user.Id,
+                Login = user.Login,
+                Email = user.Email,
+                Password = null,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                BirthDate = user.BirthDate,
+                IsAdmin = user.IsAdmin
             };
         }
         public static CompleteMovie ToAPi(this d.MovieEntity movie)
@@ -91,6 +97,31 @@ namespace FilmAppApi.Tools
                 BirthDate = staff.BirthDate
             };
         }
+        public static Movie ToMovie(this InsertCompleteMovie movie)
+        {
+            return new Movie()
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Synopsis = movie.Synopsis,
+                DirectorId = movie.DirectorId,
+                ScriptWriterId = movie.ScriptWriterId,
+                ReleaseDate = movie.ReleaseDate
+            };
+        }
+        public static MovieComment ToMovieComment(this d.MovieCommentEntity comment)
+        {
+            return new MovieComment()
+            {
+                Id = comment.Id,
+                Title = comment.Title,
+                Content = comment.Content,
+                Value = comment.Value,
+                Login = comment.Login,
+                UserId = comment.UserId,
+                Created_at = comment.Created_at
+            };
+        }
         public static d.UserEntity ToDal(this UserRegister userRegister)
         {
             return new d.UserEntity() {
@@ -122,18 +153,6 @@ namespace FilmAppApi.Tools
                 FirstName = staff.FirstName,
                 LastName = staff.LastName,
                 BirthDate = staff.BirthDate
-            };
-        }
-        public static Movie ToMovie(this InsertCompleteMovie movie)
-        {
-            return new Movie()
-            {
-                Id = movie.Id,
-                Title = movie.Title,
-                Synopsis = movie.Synopsis,
-                DirectorId = movie.DirectorId,
-                ScriptWriterId = movie.ScriptWriterId,
-                ReleaseDate = movie.ReleaseDate
             };
         }
         public static d.MovieEntity ToDal(this Movie movie)
@@ -193,5 +212,6 @@ namespace FilmAppApi.Tools
                 Value = comment.Value
             };
         }
+        
     }
 }

@@ -15,13 +15,15 @@ namespace FilmAppApi.Controllers
     public class MovieController : ControllerBase
     {
         private MovieRepository _repo { get; }
+        private CommentRepository _cmtRepo { get; }
         private StaffRepository _staffRepo { get; }
         private CastingRepository _castRepo { get; }
-        public MovieController(MovieRepository repo, StaffRepository staffRepo, CastingRepository castRepo)
+        public MovieController(MovieRepository repo, StaffRepository staffRepo, CastingRepository castRepo, CommentRepository cmtRepo)
         {
             this._repo = repo;
             this._staffRepo = staffRepo;
             this._castRepo = castRepo;
+            this._cmtRepo = _cmtRepo;
         }
         [HttpPost]
         [Authorize("admin")]
@@ -61,6 +63,7 @@ namespace FilmAppApi.Controllers
             movie.ScriptWriter = _staffRepo.GetAll().Where(sId => sId.Id == movie.ScriptWriterId).Select(x=>x.ToApi()).SingleOrDefault();
             movie.Director = _staffRepo.GetAll().Where(sId => sId.Id == movie.DirectorId).Select(x=>x.ToApi()).SingleOrDefault();
             movie.Casting = _castRepo.GetAll().Where(cId => cId.MovieId == movie.Id).Select(x => x.ToApi());
+            movie.Comments = _cmtRepo.GetFilmComments(Id).Select(x=>x.ToMovieComment());
             return Ok(movie);
         }
         [HttpGet]
