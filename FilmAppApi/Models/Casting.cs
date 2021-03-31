@@ -15,4 +15,11 @@ namespace FilmAppApi.Models
         public DateTime? BirthDate { get; set; }
         public string Character { get; set; }
     }
+    public class InsertCasting
+    {
+        public Guid Id { get; set; }
+        public Guid MovieId { get; set; }
+        public Guid StaffId { get; set; }
+        public string Character { get; set; }
+    }
 }
