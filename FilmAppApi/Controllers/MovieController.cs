@@ -23,7 +23,7 @@ namespace FilmAppApi.Controllers
             this._repo = repo;
             this._staffRepo = staffRepo;
             this._castRepo = castRepo;
-            this._cmtRepo = _cmtRepo;
+            this._cmtRepo = cmtRepo;
         }
         ///<summary>Create a new movie only for Admin user</summary>
         [HttpPost]
