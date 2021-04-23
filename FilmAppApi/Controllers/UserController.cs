@@ -55,7 +55,11 @@ namespace FilmAppApi.Controllers
             if (userApp.Disable_Until > DateTime.Now)
                 return new ForbidResult($"Utilisateur bani jusqu'au {userApp.Disable_Until} : {userApp.Reason}");
             // Generate Token
-            return Ok(_tokenManager.GenerateJWT(userApp));
+            UserLoggedIn usrLogin = userApp.ToApiLogin();
+
+            usrLogin.Usertoken = _tokenManager.GenerateJWT(userApp);
+         
+            return Ok(usrLogin);
         }
         ///<summary>Get user by Id with all of his comments</summary>
         [HttpGet("{Id}")]
@@ -68,10 +72,10 @@ namespace FilmAppApi.Controllers
         }
         ///<summary>Get all non banned users</summary>
         [HttpGet]
-        [Authorize("user")]
         [Route("GetAll")]
         public IActionResult GetAll()
         {
+            List<UserEntity> users = _repo.GetAll().Select(x=>x.ToApi()).ToList();
             return Ok(_repo.GetAll());
         }
         ///<summary>Get all users only for Admin user</summary>

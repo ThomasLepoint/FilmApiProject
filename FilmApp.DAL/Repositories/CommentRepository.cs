@@ -33,7 +33,7 @@ namespace FilmApp.DAL.Repositories
 
         public override bool Update(CommentEntity data)
         {
-            Command cmd = new Command("SP_UpdateStaff", true);
+            Command cmd = new Command("SP_UpdateComment", true);
             cmd.AddParameter("@Id", data.Id);
             cmd.AddParameter("@Title", data.Title);
             cmd.AddParameter("@Content", data.Content);
@@ -54,13 +54,13 @@ namespace FilmApp.DAL.Repositories
         }
         public IEnumerable<MovieCommentEntity> GetMovieComments(Guid IdMovie)
         {
-            Command cmd = new Command("SP_GetMovieComments", true);
+            Command cmd = new Command("SP_GetMovieComment", true);
             cmd.AddParameter("@IdMovie", IdMovie);
             return _connection.ExecuteReader(cmd, ConvertMovieComment);
         }
         public IEnumerable<MovieCommentEntity> GetUserComments(Guid IdUser)
         {
-            Command cmd = new Command("SP_GetMovieComments", true);
+            Command cmd = new Command("SP_GetUserComments", true);
             cmd.AddParameter("@IdUser", IdUser);
             return _connection.ExecuteReader(cmd, ConvertMovieComment);
         }
@@ -100,7 +100,7 @@ namespace FilmApp.DAL.Repositories
                 Title = reader["Title"].ToString(),
                 Content = reader["Content"].ToString(),
                 Value = int.Parse(reader["Value"].ToString()),
-                //MovieTitle = reader["MovieTitle"].ToString(),
+                MovieTitle = reader["MovieTitle"].ToString(),
                 MovieId = Guid.Parse(reader["MovieId"].ToString()),
                 UserId = Guid.Parse(reader["UserId"].ToString()),
                 Login = reader["Login"].ToString(),

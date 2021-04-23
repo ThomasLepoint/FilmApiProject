@@ -39,6 +39,16 @@ namespace FilmAppApi.Tools
                 IsAdmin = user.IsAdmin
             };
         }
+        public static UserLoggedIn ToApiLogin(this d.UserEntity user)
+        {
+            return new UserLoggedIn()
+            {
+                Id = user.Id,
+                Login = user.Login,
+                Email = user.Email,
+                IsAdmin = user.IsAdmin,
+            };
+        }
         public static UserComment ToUserComment(this d.MovieCommentEntity comment)
         {
             return new UserComment()
@@ -71,6 +81,7 @@ namespace FilmAppApi.Tools
         {
             return new d.UserEntity()
             {
+                Id = user.Id,
                 Email = user.Email,
                 Login = user.Login,
                 FirstName = user.FirstName,

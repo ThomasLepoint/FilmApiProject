@@ -31,6 +31,7 @@ namespace FilmAppApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddScoped(typeof(TokenManager));
             services.AddTransient(typeof(CommentRepository));
             services.AddTransient(typeof(UserRepository));
@@ -57,6 +58,7 @@ namespace FilmAppApi
             });
             services.AddAuthorization(options =>
             {
+                options.AddPolicy("anon", policy => policy.RequireRole(""));
                 options.AddPolicy("admin", policy => policy.RequireRole("admin"));
                 options.AddPolicy("user", policy => policy.RequireRole("user", "admin"));
             });
@@ -85,25 +87,26 @@ namespace FilmAppApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                //c.DisplayOperationId();
+                //c.RoutePrefix = "swagger";
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FilmAppApi v1");
+            });
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
-
-
-
             app.UseAuthentication();
             app.UseAuthorization();
+            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.DisplayOperationId();
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FilmAppApi v1");
-            });
+    
+
         }
     }
 }
