@@ -94,7 +94,8 @@ namespace FilmAppApi.Tools
             return new d.UserEntity()
             {
                 Id = user.Id,
-                Reason = user.Reason
+                Reason = user.Reason,
+                Disable_Until = user.Disable_Until
             };
         }
         //****Mappers for multiple Movies models from DAL to API****

@@ -58,7 +58,7 @@ namespace FilmAppApi.Controllers
             UserLoggedIn usrLogin = userApp.ToApiLogin();
 
             usrLogin.Usertoken = _tokenManager.GenerateJWT(userApp);
-         
+
             return Ok(usrLogin);
         }
         ///<summary>Get user by Id with all of his comments</summary>
@@ -67,7 +67,7 @@ namespace FilmAppApi.Controllers
         public IActionResult Get(Guid Id)
         {
             UserWithComment user = _repo.Get(Id).ToApiUserComment();
-            user.Comments = _repoCmt.GetUserComments(Id).Select(x=>x.ToUserComment());
+            user.Comments = _repoCmt.GetUserComments(Id).Select(x => x.ToUserComment());
             return Ok(user);
         }
         ///<summary>Get all non banned users</summary>
@@ -75,7 +75,7 @@ namespace FilmAppApi.Controllers
         [Route("GetAll")]
         public IActionResult GetAll()
         {
-            List<UserEntity> users = _repo.GetAll().Select(x=>x.ToApi()).ToList();
+            List<UserEntity> users = _repo.GetAll().Select(x => x.ToApi()).ToList();
             return Ok(_repo.GetAll());
         }
         ///<summary>Get all users only for Admin user</summary>
@@ -141,7 +141,7 @@ namespace FilmAppApi.Controllers
         [Route("SwitchRole")]
         public IActionResult SwitchRole(UserEntity user)
         {
-            return Ok(_repo.Update(user.ToDal()));
+            return Ok(_repo.SwitchRole(user.Id));
         }
     }
 }

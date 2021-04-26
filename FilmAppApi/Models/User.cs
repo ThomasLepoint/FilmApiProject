@@ -57,6 +57,7 @@ namespace FilmAppApi.Models
     {
         public Guid Id { get; set; }
         public string Reason { get; set; }
+        public  DateTime Disable_Until { get; set; }
     }
     public class UserWithComment
     {
